@@ -8,6 +8,15 @@ Tested on Cloudera 5.12.1 with Python 3.6
 The time to create a daily report in csv format with this script is less than 1 second.  The script includes a sceduler
 to run automatically each day at 12:00.
 
+#### Installation
+
+    Clone or download this hadoop-yarn-resource-consumption-report project
+    Install Python
+    Create a Python 3.6 environment
+    Install required packages listed in the requirements.txt environment
+        run: pip install -r requirements.txt in your shell 
+
+
 #### Configuration
 
 Configure for your environment by editing the configuration.py file
