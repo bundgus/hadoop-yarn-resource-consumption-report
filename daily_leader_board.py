@@ -26,6 +26,7 @@ class LeaderBoard(luigi.Task):
         return luigi.LocalTarget(output_path)
 
     def run(self):
+        analysis_timestamp = str(datetime.now())
         output_path = os.path.join('daily_leader_boards',
                                    'leader_board_'
                                    + str(self.jobs_year)
@@ -131,7 +132,7 @@ class LeaderBoard(luigi.Task):
         df = df.sort_values(by='used_MB_seconds', ascending=False)
 
         print()
-        print('analysis timestamp: ' + str(datetime.now()))
+        print('analysis timestamp: ' + analysis_timestamp)
         # print('functional account:', job_user)
         print('jobs date: ' + begin_date.strftime('%Y-%m-%d'))
         print('----------------------')
