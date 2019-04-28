@@ -5,7 +5,8 @@ Mark Bundgus 2019
 
 Tested on Cloudera 5.12.1 with Python 3.6
 
-The time to create a daily report in csv format with this script is less than 1 second.
+The time to create a daily report in csv format with this script is less than 1 second.  The script includes a sceduler
+to run automatically each day at 12:00.
 
 #### Configuration
 
@@ -16,7 +17,8 @@ Configure for your environment by editing the configuration.py file
 
 #### Running
 
-To start a scheduled job that runs immediately, then again at 12:00 every day to produce a leader board for the prior 7 day days:
+To start a scheduled job that runs immediately, then again at 12:00 every day to produce a leader board for the prior 
+7 day days:
 
     python run_scheduled_reports.py
 
