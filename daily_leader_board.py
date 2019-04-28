@@ -102,7 +102,7 @@ class LeaderBoard(luigi.Task):
                   'percent_used_of_all_used_MB_seconds',
                   'percent_used_of_total_cluster_MB_seconds',
                   'user_first_task_started_time',
-                  'last_task_finished_time'
+                  'user_last_task_finished_time'
                   ]
 
         table = []

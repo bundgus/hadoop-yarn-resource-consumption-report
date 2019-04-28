@@ -41,12 +41,12 @@ Field definitions:
 |percent_used_of_all_used_MB_seconds|For all memory capacity used by all YARN users, the percentage of the used memory capacity that was specifically used by the individual YARN user account|
 |percent_used_of_total_cluster_MB_seconds|The percentage of total daily YARN cluster memory capacity that was specifically used by the individual YARN user account|
 |user_first_task_started_time|For the specific user for the indicated day, the datetime that the first YARN task started|
-|last_task_finished_time|For the specific user for the indicated day, the datetime that the last YARN task finished|
+|ueer_last_task_finished_time|For the specific user for the indicated day, the datetime that the last YARN task finished|
 
 
 Sample csv output:
 
-    jobs_year,jobs_month,jobs_day,cluster_daily_vcore_seconds,cluster_daily_megabyte_memory_seconds,user,used_vcore_seconds,percent_used_of_all_used_vcore_seconds,percent_used_of_total_cluster_vcore_seconds,used_MB_seconds,percent_used_of_all_used_MB_seconds,percent_used_of_total_cluster_MB_seconds,user_first_task_started_time,last_task_finished_time
+    jobs_year,jobs_month,jobs_day,cluster_daily_vcore_seconds,cluster_daily_megabyte_memory_seconds,user,used_vcore_seconds,percent_used_of_all_used_vcore_seconds,percent_used_of_total_cluster_vcore_seconds,used_MB_seconds,percent_used_of_all_used_MB_seconds,percent_used_of_total_cluster_MB_seconds,user_first_task_started_time,user_last_task_finished_time
     2019,4,26,257817600,564385708800,user1,53118060,71.66,20.6,205637409339,58.03,36.44,2019-04-26 00:25,2019-04-26 23:57
     2019,4,26,257817600,564385708800,user2,1740261,2.35,0.67,57144608173,16.13,10.13,2019-04-26 00:06,2019-04-26 23:16
     2019,4,26,257817600,564385708800,user3,4437423,5.99,1.72,19898742116,5.62,3.53,2019-04-26 00:00,2019-04-26 23:14
@@ -75,7 +75,7 @@ Sample Console Output:
     overall daily jobs started time  2019-04-26 00:00
     overall daily jobs finished time 2019-04-26 23:58
 
-      jobs_year    jobs_month    jobs_day    cluster_daily_vcore_seconds    cluster_daily_megabyte_memory_seconds  user                        used_vcore_seconds    percent_used_of_all_used_vcore_seconds    percent_used_of_total_cluster_vcore_seconds    used_MB_seconds    percent_used_of_all_used_MB_seconds    percent_used_of_total_cluster_MB_seconds  user_first_task_started_time       last_task_finished_time
+      jobs_year    jobs_month    jobs_day    cluster_daily_vcore_seconds    cluster_daily_megabyte_memory_seconds  user                        used_vcore_seconds    percent_used_of_all_used_vcore_seconds    percent_used_of_total_cluster_vcore_seconds    used_MB_seconds    percent_used_of_all_used_MB_seconds    percent_used_of_total_cluster_MB_seconds  user_first_task_started_time       user_last_task_finished_time
     -----------  ------------  ----------  -----------------------------  ---------------------------------------  ------------------------  --------------------  ----------------------------------------  ---------------------------------------------  -----------------  -------------------------------------  ------------------------------------------  ---------------------------------  ----------------------------
            2019             4          26                      257817600                             564385708800  user1                                 53118060                                     71.66                                          20.6        205637409339                                  58.03                                       36.44  2019-04-26 00:25                   2019-04-26 23:57
            2019             4          26                      257817600                             564385708800  user2                                  1740261                                      2.35                                           0.67        57144608173                                  16.13                                       10.13  2019-04-26 00:06                   2019-04-26 23:16
