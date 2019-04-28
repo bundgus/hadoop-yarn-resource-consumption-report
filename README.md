@@ -3,7 +3,7 @@
 
 Mark Bundgus 2019
 
-Tested on Cloudera 5.12.1
+Tested on Cloudera 5.12.1 with Python 3.6
 
 The time to create a daily report in csv format with this script is less than 1 second.
 
