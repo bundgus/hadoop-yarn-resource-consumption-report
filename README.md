@@ -41,7 +41,7 @@ Field definitions:
 |percent_used_of_all_used_MB_seconds|For all memory capacity used by all YARN users, the percentage of the used memory capacity that was specifically used by the individual YARN user account|
 |percent_used_of_total_cluster_MB_seconds|The percentage of total daily YARN cluster memory capacity that was specifically used by the individual YARN user account|
 |user_first_task_started_time|For the specific user for the indicated day, the datetime that the first YARN task started|
-|ueer_last_task_finished_time|For the specific user for the indicated day, the datetime that the last YARN task finished|
+|user_last_task_finished_time|For the specific user for the indicated day, the datetime that the last YARN task finished|
 
 
 Sample csv output:
