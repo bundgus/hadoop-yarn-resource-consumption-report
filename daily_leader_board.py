@@ -33,7 +33,8 @@ class LeaderBoard(luigi.Task):
                                    + '-' + str(self.jobs_month).zfill(2)
                                    + '-' + str(self.jobs_day).zfill(2) + '.csv')
 
-        rm = ResourceManager(address=configuration.resource_manager_address, port=configuration.resource_manager_port)
+        rm = ResourceManager(address=configuration.yarn_resource_manager_address,
+                             port=configuration.yarn_resource_manager_port)
 
         metrics = rm.cluster_metrics()
         cluster_vcores_total = metrics.data['clusterMetrics']['totalVirtualCores']
@@ -63,7 +64,7 @@ class LeaderBoard(luigi.Task):
 
         for app in applist:
             user = users.setdefault(app['user'], {'user_first_task_started_time_ms': 9999999999999,
-                                                  'last_task_finished_time_ms':0})
+                                                  'last_task_finished_time_ms': 0})
             total_vcore_seconds += app['vcoreSeconds']
             total_mb_seconds += app['memorySeconds']
 
@@ -72,7 +73,7 @@ class LeaderBoard(luigi.Task):
                 else user['user_first_task_started_time_ms']
             user['last_task_finished_time_ms'] = app['finishedTime'] \
                 if app['finishedTime'] > user['last_task_finished_time_ms'] \
-                else  user['last_task_finished_time_ms']
+                else user['last_task_finished_time_ms']
 
             overall_started_time_ms = app['startedTime'] if app['startedTime'] < overall_started_time_ms \
                 else overall_started_time_ms
