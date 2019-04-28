@@ -30,9 +30,9 @@ Field definitions:
 
 |Field|Description|
 |---|---|
-|jobs_year|year of metric|
-|jobs_month|month of metric|
-|jobs_day|day of metric|
+|jobs_year|year of metrics|
+|jobs_month|month of metrics|
+|jobs_day|day of metrics|
 |cluster_daily_vcore_seconds|total allocated YARN daily VCore capacity for the cluster in VCore-seconds|
 |cluster_daily_megabyte_memory_seconds|total allocated YARN daily memory capacity for the cluster in megabyte-seconds|
 |user|YARN user account associated with tasks|
