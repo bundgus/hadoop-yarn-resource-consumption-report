@@ -4,3 +4,4 @@ pytz
 tabulate
 luigi
 yarn-api-client # https://python-client-for-hadoop-yarn-api.readthedocs.io
+pandas
