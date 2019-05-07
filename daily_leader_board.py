@@ -48,9 +48,10 @@ class LeaderBoard(luigi.Task):
         begin_ms = str(int(begin_date.timestamp() * 1000))
         end_ms = str(int(end_date.timestamp() * 1000))
 
-        apps = rm.cluster_applications(state='FINISHED',
-                                       started_time_begin=begin_ms,
-                                       finished_time_end=end_ms
+        # filter out jobs that started after the end of the analyzed day
+        apps = rm.cluster_applications(
+                                       # finished_time_begin=begin_ms,
+                                       started_time_end=end_ms
                                        )
         applist = apps.data['apps']['app']
         total_vcore_seconds = 0
@@ -62,11 +63,52 @@ class LeaderBoard(luigi.Task):
 
         users = {}
 
+        app_file = 'app_lists/apps_' + str(self.jobs_year) \
+                   + '-' + str(self.jobs_month).zfill(2) \
+                   + '-' + str(self.jobs_day).zfill(2) + '.csv'
+
+        apps_df = pd.DataFrame(applist)
+        apps_df.to_csv(app_file)
+
         for app in applist:
+
+            begin_ms_int = int(begin_ms)
+            end_ms_int = int(end_ms)
+            started_time = app['startedTime']
+            finished_time = app['finishedTime']
+            elapsed_time = app['elapsedTime']
+
+            # disregard apps that haven't ever or yet consumed any resources
+            if app['state'] not in ['FINISHED', 'FAILED', 'KILLED', 'RUNNING']:
+                continue
+
+            # disregard apps that finished before the beginning of the analyzed day
+            if 0 < finished_time < begin_ms_int:
+                continue
+
+            # for scenario where job began and ended in the same day
+            percent_within_day = 1.0
+
+            # scenario where job began before the beginning of the day and ended before the end of the day
+            if started_time < begin_ms_int and begin_ms_int < finished_time < end_ms_int:
+                percent_within_day = (finished_time - begin_ms_int)/elapsed_time
+
+            # scenario where job began before the end of the day and continued beyond the end of the day
+            if started_time < begin_ms_int and (finished_time == 0 or finished_time > end_ms_int):
+                percent_within_day = 86400000/elapsed_time
+
+            # scenario where job began before the end of the day and continued beyond the end of the day
+            if begin_ms_int < started_time < end_ms_int \
+                    and (finished_time == 0 or end_ms_int < finished_time):
+                percent_within_day = (end_ms_int-started_time)/elapsed_time
+
+            weighted_app_vcore_seconds = int(app['vcoreSeconds'] * percent_within_day)
+            weighted_app_memory_seconds = int(app['memorySeconds'] * percent_within_day)
+
             user = users.setdefault(app['user'], {'user_first_task_started_time_ms': 9999999999999,
                                                   'last_task_finished_time_ms': 0})
-            total_vcore_seconds += app['vcoreSeconds']
-            total_mb_seconds += app['memorySeconds']
+            total_vcore_seconds += weighted_app_vcore_seconds
+            total_mb_seconds += weighted_app_memory_seconds
 
             user['user_first_task_started_time_ms'] = app['startedTime'] \
                 if app['startedTime'] < user['user_first_task_started_time_ms'] \
@@ -84,10 +126,10 @@ class LeaderBoard(luigi.Task):
             total_yarn_apps += 1
 
             user_total_vcore_seconds = user.setdefault('total_vcore_seconds', 0)
-            user['total_vcore_seconds'] = user_total_vcore_seconds + app['vcoreSeconds']
+            user['total_vcore_seconds'] = user_total_vcore_seconds + weighted_app_vcore_seconds
 
             user_total_mb_seconds = user.setdefault('total_MB_seconds', 0)
-            user['total_MB_seconds'] = user_total_mb_seconds + app['memorySeconds']
+            user['total_MB_seconds'] = user_total_mb_seconds + weighted_app_memory_seconds
 
         header = ['jobs_year',
                   'jobs_month',
