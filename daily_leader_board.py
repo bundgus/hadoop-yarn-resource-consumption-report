@@ -90,7 +90,7 @@ class LeaderBoard(luigi.Task):
             percent_within_day = 1.0
 
             # scenario where job began before the beginning of the day and ended before the end of the day
-            if started_time < begin_ms_int and begin_ms_int < finished_time < end_ms_int:
+            if started_time < begin_ms_int < finished_time < end_ms_int:
                 percent_within_day = (finished_time - begin_ms_int)/elapsed_time
 
             # scenario where job began before the end of the day and continued beyond the end of the day
@@ -150,6 +150,15 @@ class LeaderBoard(luigi.Task):
         table = []
 
         for user in users:
+
+            # set last_task_finished_time to None if timestamp == 0 representing that the task hasn't finished yet
+            if int(users[user]['last_task_finished_time_ms']) == 0:
+                last_task_finished_time_string = ''
+            else:
+                last_task_finished_time_string = \
+                    datetime.fromtimestamp(users[user]['last_task_finished_time_ms'] / 1000.0)\
+                        .strftime('%Y-%m-%d %H:%M')
+
             row = [
                    self.jobs_year,
                    self.jobs_month,
@@ -165,8 +174,7 @@ class LeaderBoard(luigi.Task):
                    round(100 * users[user]['total_MB_seconds'] / cluster_daily_megabyte_memory_seconds, 2),
                    datetime.fromtimestamp(users[user]['user_first_task_started_time_ms'] / 1000.0)
                        .strftime('%Y-%m-%d %H:%M'),
-                   datetime.fromtimestamp(users[user]['last_task_finished_time_ms'] / 1000.0)
-                       .strftime('%Y-%m-%d %H:%M'),
+                   last_task_finished_time_string,
                    ]
 
             table.append(row)
