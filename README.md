@@ -8,6 +8,20 @@ Tested on Cloudera 5.12.1 with Python 3.6
 The time to create a daily report in csv format with this script is less than 10 seconds.  The script includes a sceduler
 to run automatically each day at 12:00.
 
+#### Features
+
+* Daily summmary of YARN VCore and memory use by user
+* Calculates daily YARN total platform capacity
+* Reports absolute usage in VCore-seconds and MB-seconds
+* Relative percent use of total platform capacity
+* Relative percent use of daily capacity used by all users
+* Prorates resource use to the day for long-running jobs that begin before the day or continues beyond the end of the day
+* Output results to the console
+* Output results to csv format for use in reporting
+* Output detailed YARN data in csv format for additional long term analysis
+* Helper script to combine daily reports in csv format
+
+
 #### Installation
 
     Clone or download this hadoop-yarn-resource-consumption-report project
