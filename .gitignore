@@ -1,1 +1,4 @@
 .idea/*
+/configuration.py
+/combined_daily_leader_board.csv
+/combined_daily_leader_board.xlsx
