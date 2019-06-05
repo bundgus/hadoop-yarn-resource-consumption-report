@@ -1,0 +1,8 @@
+yarn_resource_manager_address = 'server.domain.com'
+yarn_resource_manager_port = 8088
+cm_user = 'xxxxxx'
+cm_password = 'xxxxxx'
+hive_functional_account = 'xxxxx' # replace with the functional account for which you want a list of queries
+hive_year = 2019
+hive_month = 6
+hive_day = 5
