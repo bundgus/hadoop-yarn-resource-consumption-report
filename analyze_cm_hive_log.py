@@ -56,7 +56,7 @@ jo = json.loads(requests.get(url, auth=HTTPBasicAuth(cm_user, cm_password)).cont
 queries = {}
 
 # print('start_time|end_time|hdfs_bytes_read|hdfs_bytes_written|query')
-print(len(jo['applications']))
+print('task count:', str(len(jo['applications'])))
 for app in jo['applications']:
     print(app)
     if app['state'] != 'RUNNING':
@@ -68,11 +68,11 @@ for app in jo['applications']:
         row = '|'.join([str(st), "str(et)", str(br), str(bw), str(hq)])
         # results are returned in reverse chronological order - this ensures the earlies related task start is captured
         queries[hq] = st
-# print()
-# print(len(queries))
+print()
+print('unique query count:', str(len(queries)))
 print('-------------------')
-for q in queries:
-    print(queries[q], q)
+#for q in queries:
+#    print(queries[q], q)
 
 print()
 print('start_time|query')
