@@ -93,7 +93,7 @@ class LeaderBoard(luigi.Task):
             if started_time < begin_ms_int < finished_time < end_ms_int:
                 percent_within_day = (finished_time - begin_ms_int)/elapsed_time
 
-            # scenario where job began before the end of the day and continued beyond the end of the day
+            # scenario where job began before the beginning of the day and continued beyond the end of the day
             if started_time < begin_ms_int and (finished_time == 0 or finished_time > end_ms_int):
                 percent_within_day = 86400000/elapsed_time
 
