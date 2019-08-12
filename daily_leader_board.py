@@ -199,7 +199,7 @@ class LeaderBoard(luigi.Task):
                   index=False)
 
 
-# create leader boards for the last 7 days
+# create leader boards for the last 3 days
 class CreateDailyLeaderBoards(luigi.Task):
 
     def complete(self):
@@ -210,7 +210,7 @@ class CreateDailyLeaderBoards(luigi.Task):
         now = datetime.now()
 
         log.info('Attempting to create leader board')
-        for days_int in range(1, 6):
+        for days_int in range(1, 3):
             date = now - timedelta(days_int)
             year = date.year
             month = date.month
