@@ -33,9 +33,7 @@ class LeaderBoard(luigi.Task):
                                    + '-' + str(self.jobs_month).zfill(2)
                                    + '-' + str(self.jobs_day).zfill(2) + '.csv')
 
-        rm = ResourceManager(address=configuration.yarn_resource_manager_address,
-                             port=configuration.yarn_resource_manager_port)
-
+        rm = ResourceManager(configuration.yarn_resource_managers)
         metrics = rm.cluster_metrics()
         cluster_vcores_total = metrics.data['clusterMetrics']['totalVirtualCores']
         cluster_daily_vcore_seconds = int(cluster_vcores_total * 60 * 60 * 24)
