@@ -31,7 +31,7 @@ print('from:', str(start_datetime_utc))
 print('to:', str(end_datetime_utc))
 print()
 
-url = 'http://bdaolp011node03:7180/api/v7/clusters/cluster/services/yarn/yarnApplications' \
+url = 'http://' + configuration.yarn_resource_manager_address + ':7180/api/v7/clusters/cluster/services/yarn/yarnApplications' \
       '?from={0}-{1}-{2}T{3}%3A{4}%3A{5}.000Z' \
       '&to={6}-{7}-{8}T{9}%3A{10}%3A{11}.000Z' \
       '&filter=user+%3D+%22{12}%22'.format(str(start_datetime_utc.year),
@@ -79,3 +79,8 @@ print('start_time|query')
 # show the start time of the query by sorting for the first timestamp
 for w in sorted(queries, key=queries.get, reverse=False):
     print('|'.join((queries[w], w)))
+
+print()
+
+for w in sorted(queries, key=queries.get, reverse=False):
+    print(w.strip(), ';')
